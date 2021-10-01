@@ -1,7 +1,9 @@
 package cube.tokenizer;
 
+import cube.expressions.Identifier;
 import cube.expressions.IntConstant;
 import cube.expressions.Symbol;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -101,5 +103,18 @@ public class CubeTokenizerTest {
                         new Symbol(PLUS),
                         new IntConstant(6),
                         new Symbol(RIGHT_PARENTHESIS)))));
+    }
+
+    @Test
+    @Disabled
+    public void shouldTokenizeIdentifiers() {
+        assertThat(
+                tokenize("a + b + xyz"),
+                is(equalTo(List.of(
+                        new Identifier("a"),
+                        new Symbol(PLUS),
+                        new Identifier("b"),
+                        new Symbol(PLUS),
+                        new Identifier("xyz")))));
     }
 }
