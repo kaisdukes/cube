@@ -1,4 +1,4 @@
-package cube;
+package cube.parser;
 
 public class CubeParser {
 

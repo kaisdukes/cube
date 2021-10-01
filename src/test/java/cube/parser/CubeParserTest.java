@@ -1,8 +1,8 @@
-package cube;
+package cube.parser;
 
 import org.junit.jupiter.api.Test;
 
-import static cube.CubeParser.parse;
+import static cube.parser.CubeParser.parse;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
