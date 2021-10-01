@@ -1,7 +1,7 @@
 package cube.language;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 public enum KeywordType {
     AS,
@@ -13,7 +13,7 @@ public enum KeywordType {
     OUTPUT,
     THEN;
 
-    private static final Map<String, KeywordType> keywordMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+    private static final Map<String, KeywordType> keywordMap = new HashMap<>();
 
     static {
         for (final KeywordType keywordType : values()) {
@@ -23,6 +23,14 @@ public enum KeywordType {
 
     public static boolean isKeyword(String text) {
         return keywordMap.containsKey(text);
+    }
+
+    public static KeywordType of(String text) {
+        final KeywordType keywordType = keywordMap.get(text);
+        if (keywordType == null) {
+            throw new UnsupportedOperationException("Unrecognized keyword: " + text);
+        }
+        return keywordType;
     }
 
     public String getText() {

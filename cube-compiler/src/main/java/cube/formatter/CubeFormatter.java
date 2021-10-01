@@ -1,9 +1,6 @@
 package cube.formatter;
 
-import cube.expressions.Expression;
-import cube.expressions.Identifier;
-import cube.expressions.IntConstant;
-import cube.expressions.Symbol;
+import cube.expressions.*;
 
 public class CubeFormatter {
     private final StringBuilder text = new StringBuilder();
@@ -12,6 +9,7 @@ public class CubeFormatter {
         switch (expression.getExpressionType()) {
             case SYMBOL -> text.append(((Symbol) expression).getSymbolType().getText());
             case INT_CONSTANT -> text.append(((IntConstant) expression).getValue());
+            case KEYWORD -> text.append(((Keyword) expression).getKeywordType().getText());
             case IDENTIFIER -> text.append(((Identifier) expression).getText());
             default -> throw new UnsupportedOperationException(
                     "The expression type " + expression.getExpressionType() + " is not supported.");

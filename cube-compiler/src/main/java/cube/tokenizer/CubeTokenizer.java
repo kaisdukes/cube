@@ -1,11 +1,13 @@
 package cube.tokenizer;
 
 import cube.expressions.*;
+import cube.language.KeywordType;
 import cube.language.SymbolType;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static cube.expressions.ExpressionType.*;
 import static java.lang.Integer.parseInt;
 
 public class CubeTokenizer {
@@ -31,6 +33,7 @@ public class CubeTokenizer {
             switch (tokenType) {
                 case SYMBOL -> tokens.add(new Symbol(SymbolType.of(tokenizer.getTokenText())));
                 case INT_CONSTANT -> tokens.add(new IntConstant(parseInt(tokenizer.getTokenText())));
+                case KEYWORD -> tokens.add(new Keyword(KeywordType.of(tokenizer.getTokenText())));
                 case IDENTIFIER -> tokens.add(new Identifier(tokenizer.getTokenText()));
                 default -> throw new UnsupportedOperationException("Unsupported token type: " + tokenType);
             }
@@ -59,7 +62,7 @@ public class CubeTokenizer {
 
         final char ch = peek();
         if (digit(ch)) readNumber();
-        else if (identifierStart(ch)) readIdentifier();
+        else if (identifierStart(ch)) readIdentifierOrKeyword();
         else readSymbol(ch);
     }
 
@@ -80,7 +83,7 @@ public class CubeTokenizer {
     }
 
     private void readNumber() {
-        tokenType = ExpressionType.INT_CONSTANT;
+        tokenType = INT_CONSTANT;
         tokenStart = position++;
         while (canRead() && digit(peek())) {
             position++;
@@ -88,18 +91,18 @@ public class CubeTokenizer {
         tokenEnd = position;
     }
 
-    private void readIdentifier() {
-        tokenType = ExpressionType.IDENTIFIER;
+    private void readIdentifierOrKeyword() {
         tokenStart = position++;
         while (canRead() && identifierPart(peek())) {
             position++;
         }
         tokenEnd = position;
+        tokenType = KeywordType.isKeyword(getTokenText()) ? KEYWORD : IDENTIFIER;
     }
 
     private void readSymbol(final char ch) {
         if (ch == '+' || ch == '*' || ch == '(' || ch == ')') {
-            tokenType = ExpressionType.SYMBOL;
+            tokenType = SYMBOL;
             tokenStart = position;
             tokenEnd = ++position;
             return;

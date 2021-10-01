@@ -2,11 +2,13 @@ package cube.tokenizer;
 
 import cube.expressions.Identifier;
 import cube.expressions.IntConstant;
+import cube.expressions.Keyword;
 import cube.expressions.Symbol;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static cube.language.KeywordType.*;
 import static cube.language.SymbolType.*;
 import static cube.tokenizer.CubeTokenizer.tokenize;
 import static java.util.Collections.emptyList;
@@ -114,5 +116,16 @@ public class CubeTokenizerTest {
                         new Identifier("b"),
                         new Symbol(PLUS),
                         new Identifier("xyz")))));
+    }
+
+    @Test
+    public void shouldTokenizeKeywords() {
+        assertThat(
+                tokenize("function foo as int"),
+                is(equalTo(List.of(
+                        new Keyword(FUNCTION),
+                        new Identifier("foo"),
+                        new Keyword(AS),
+                        new Keyword(INT)))));
     }
 }
