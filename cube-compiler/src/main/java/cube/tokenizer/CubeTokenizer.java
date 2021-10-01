@@ -56,7 +56,7 @@ public class CubeTokenizer {
         }
 
         final char ch = peek();
-        if (ch >= '0' && ch <= '9') readNumber();
+        if (digit(ch)) readNumber();
         else readSymbol(ch);
     }
 
@@ -77,10 +77,12 @@ public class CubeTokenizer {
     }
 
     private void readNumber() {
-        // TODO: Extend this to support more than a single digit.
         tokenType = ExpressionType.INT_CONSTANT;
-        tokenStart = position;
-        tokenEnd = ++position;
+        tokenStart = position++;
+        while (canRead() && digit(peek())) {
+            position++;
+        }
+        tokenEnd = position;
     }
 
     private void readSymbol(final char ch) {
@@ -103,5 +105,9 @@ public class CubeTokenizer {
 
     private boolean whitespace(final char ch) {
         return ch == ' ';
+    }
+
+    private boolean digit(final char ch) {
+        return ch >= '0' && ch <= '9';
     }
 }

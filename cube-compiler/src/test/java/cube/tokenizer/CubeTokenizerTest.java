@@ -2,7 +2,6 @@ package cube.tokenizer;
 
 import cube.expressions.IntConstant;
 import cube.expressions.Symbol;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -50,7 +49,6 @@ public class CubeTokenizerTest {
     }
 
     @Test
-    @Disabled
     public void shouldTokenizePositiveIntConstants() {
         assertThat(
                 tokenize("1 1000 16580192 2147483647"),
@@ -69,5 +67,15 @@ public class CubeTokenizerTest {
                         new IntConstant(1),
                         new Symbol(PLUS),
                         new IntConstant(2)))));
+    }
+
+    @Test
+    public void shouldTokenizeBinaryExpressionWithoutWhitespace() {
+        assertThat(
+                tokenize("3+4"),
+                is(equalTo(List.of(
+                        new IntConstant(3),
+                        new Symbol(PLUS),
+                        new IntConstant(4)))));
     }
 }
