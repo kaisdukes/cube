@@ -1,5 +1,12 @@
 package cube.expressions;
 
 public enum SymbolType {
-    PLUS
+    PLUS;
+
+    public static SymbolType of(String text) {
+        return switch (text) {
+            case "+" -> PLUS;
+            default -> throw new UnsupportedOperationException("Unrecognized symbol: " + text);
+        };
+    }
 }

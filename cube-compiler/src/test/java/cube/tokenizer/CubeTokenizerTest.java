@@ -2,7 +2,6 @@ package cube.tokenizer;
 
 import cube.expressions.IntConstant;
 import cube.expressions.Symbol;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -16,7 +15,6 @@ import static org.hamcrest.Matchers.is;
 public class CubeTokenizerTest {
 
     @Test
-    @Disabled
     public void shouldTokenizePlusSign() {
         assertThat(
                 tokenize("+"),
@@ -25,7 +23,6 @@ public class CubeTokenizerTest {
     }
 
     @Test
-    @Disabled
     public void shouldTokenizeBinaryExpression() {
         assertThat(
                 tokenize("1 + 2"),
