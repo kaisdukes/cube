@@ -86,7 +86,7 @@ public class CubeTokenizer {
     }
 
     private void readSymbol(final char ch) {
-        if (ch == '+') {
+        if (ch == '+' || ch == '*') {
             tokenType = ExpressionType.SYMBOL;
             tokenStart = position;
             tokenEnd = ++position;

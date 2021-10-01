@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static cube.expressions.SymbolType.PLUS;
+import static cube.expressions.SymbolType.STAR;
 import static cube.tokenizer.CubeTokenizer.tokenize;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -77,5 +78,15 @@ public class CubeTokenizerTest {
                         new IntConstant(3),
                         new Symbol(PLUS),
                         new IntConstant(4)))));
+    }
+
+    @Test
+    public void shouldTokenizeBinaryExpressionWithMultiplication() {
+        assertThat(
+                tokenize("42 * 56"),
+                is(equalTo(List.of(
+                        new IntConstant(42),
+                        new Symbol(STAR),
+                        new IntConstant(56)))));
     }
 }

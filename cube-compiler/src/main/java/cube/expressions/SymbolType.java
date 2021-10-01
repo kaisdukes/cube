@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum SymbolType {
-    PLUS("+");
+    PLUS("+"),
+    STAR("*");
 
     private final String text;
     private static final Map<String, SymbolType> symbolMap = new HashMap<>();
