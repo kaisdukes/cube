@@ -4,7 +4,6 @@ import cube.expressions.Identifier;
 import cube.expressions.IntConstant;
 import cube.expressions.Keyword;
 import cube.expressions.Symbol;
-import cube.language.KeywordType;
 import org.junit.jupiter.api.Test;
 
 import static cube.language.KeywordType.FUNCTION;
