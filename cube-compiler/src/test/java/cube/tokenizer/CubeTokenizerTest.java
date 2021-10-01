@@ -23,6 +23,14 @@ public class CubeTokenizerTest {
     }
 
     @Test
+    public void shouldTokenizeZero() {
+        assertThat(
+                tokenize("0 "),
+                is(equalTo(List.of(
+                        new IntConstant(0)))));
+    }
+
+    @Test
     public void shouldTokenizeBinaryExpression() {
         assertThat(
                 tokenize("1 + 2"),
