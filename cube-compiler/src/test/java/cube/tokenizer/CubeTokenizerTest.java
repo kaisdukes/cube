@@ -8,11 +8,19 @@ import java.util.List;
 
 import static cube.expressions.SymbolType.PLUS;
 import static cube.tokenizer.CubeTokenizer.tokenize;
+import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 public class CubeTokenizerTest {
+
+    @Test
+    public void shouldTokenizeWhitespace() {
+        assertThat(
+                tokenize("    "),
+                is(equalTo(emptyList())));
+    }
 
     @Test
     public void shouldTokenizePlusSign() {
@@ -27,6 +35,16 @@ public class CubeTokenizerTest {
         assertThat(
                 tokenize("0"),
                 is(equalTo(List.of(
+                        new IntConstant(0)))));
+    }
+
+    @Test
+    public void shouldTokenizeZerosWithWhitespace() {
+        assertThat(
+                tokenize("    0    0     0     "),
+                is(equalTo(List.of(
+                        new IntConstant(0),
+                        new IntConstant(0),
                         new IntConstant(0)))));
     }
 
