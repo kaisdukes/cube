@@ -1,13 +1,16 @@
 package cube.tokenizer;
 
+import cube.expressions.Expression;
 import cube.expressions.ExpressionType;
+
+import java.util.List;
 
 public class CubeTokenizer {
     private ExpressionType tokenType;
     private int tokenStart;
     private int tokenEnd;
 
-    public static void tokenize(final String text) {
+    public static List<Expression> tokenize(final String text) {
         throw new UnsupportedOperationException("Not implemented.");
     }
 
