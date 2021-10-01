@@ -3,7 +3,6 @@ package cube.tokenizer;
 import cube.expressions.Identifier;
 import cube.expressions.IntConstant;
 import cube.expressions.Symbol;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -106,7 +105,6 @@ public class CubeTokenizerTest {
     }
 
     @Test
-    @Disabled
     public void shouldTokenizeIdentifiers() {
         assertThat(
                 tokenize("a + b + xyz"),

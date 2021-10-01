@@ -30,6 +30,7 @@ public class CubeTokenizer {
             switch (tokenType) {
                 case SYMBOL -> tokens.add(new Symbol(SymbolType.of(tokenizer.getTokenText())));
                 case INT_CONSTANT -> tokens.add(new IntConstant(parseInt(tokenizer.getTokenText())));
+                case IDENTIFIER -> tokens.add(new Identifier(tokenizer.getTokenText()));
                 default -> throw new UnsupportedOperationException("Unsupported token type: " + tokenType);
             }
         }
@@ -57,6 +58,7 @@ public class CubeTokenizer {
 
         final char ch = peek();
         if (digit(ch)) readNumber();
+        else if (identifierStart(ch)) readIdentifier();
         else readSymbol(ch);
     }
 
@@ -80,6 +82,15 @@ public class CubeTokenizer {
         tokenType = ExpressionType.INT_CONSTANT;
         tokenStart = position++;
         while (canRead() && digit(peek())) {
+            position++;
+        }
+        tokenEnd = position;
+    }
+
+    private void readIdentifier() {
+        tokenType = ExpressionType.IDENTIFIER;
+        tokenStart = position++;
+        while (canRead() && identifierPart(peek())) {
             position++;
         }
         tokenEnd = position;
@@ -109,5 +120,13 @@ public class CubeTokenizer {
 
     private boolean digit(final char ch) {
         return ch >= '0' && ch <= '9';
+    }
+
+    private boolean identifierStart(final char ch) {
+        return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == '_';
+    }
+
+    private boolean identifierPart(final char ch) {
+        return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z') || ch == '_' || (ch >= '0' && ch <= '9');
     }
 }
