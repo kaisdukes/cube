@@ -1,6 +1,6 @@
 package cube.expressions;
 
-public class Expression {
+public abstract class Expression {
     private final ExpressionType expressionType;
 
     public Expression(final ExpressionType expressionType) {
