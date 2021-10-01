@@ -2,6 +2,7 @@ package cube.tokenizer;
 
 import cube.expressions.IntConstant;
 import cube.expressions.Symbol;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -46,6 +47,18 @@ public class CubeTokenizerTest {
                         new IntConstant(0),
                         new IntConstant(0),
                         new IntConstant(0)))));
+    }
+
+    @Test
+    @Disabled
+    public void shouldTokenizePositiveIntConstants() {
+        assertThat(
+                tokenize("1 1000 16580192 2147483647"),
+                is(equalTo(List.of(
+                        new IntConstant(1),
+                        new IntConstant(1000),
+                        new IntConstant(16580192),
+                        new IntConstant(Integer.MAX_VALUE)))));
     }
 
     @Test
