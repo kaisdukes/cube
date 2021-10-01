@@ -1,5 +1,6 @@
 package cube.formatter;
 
+import cube.expressions.Identifier;
 import cube.expressions.IntConstant;
 import cube.expressions.Symbol;
 import org.junit.jupiter.api.Test;
@@ -23,5 +24,12 @@ public class CubeFormatterTest {
         assertThat(
                 new IntConstant(16580192).toString(),
                 is(equalTo("16580192")));
+    }
+
+    @Test
+    public void shouldFormatIdentifier() {
+        assertThat(
+                new Identifier("xyz").toString(),
+                is(equalTo("xyz")));
     }
 }

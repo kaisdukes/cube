@@ -1,6 +1,7 @@
 package cube.formatter;
 
 import cube.expressions.Expression;
+import cube.expressions.Identifier;
 import cube.expressions.IntConstant;
 import cube.expressions.Symbol;
 
@@ -11,6 +12,7 @@ public class CubeFormatter {
         switch (expression.getExpressionType()) {
             case SYMBOL -> text.append(((Symbol) expression).getSymbolType().getText());
             case INT_CONSTANT -> text.append(((IntConstant) expression).getValue());
+            case IDENTIFIER -> text.append(((Identifier) expression).getText());
             default -> throw new UnsupportedOperationException(
                     "The expression type " + expression.getExpressionType() + " is not supported.");
         }
