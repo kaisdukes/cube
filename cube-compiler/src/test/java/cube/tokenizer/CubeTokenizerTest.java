@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static cube.expressions.SymbolType.PLUS;
-import static cube.expressions.SymbolType.STAR;
+import static cube.expressions.SymbolType.*;
 import static cube.tokenizer.CubeTokenizer.tokenize;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -88,5 +87,19 @@ public class CubeTokenizerTest {
                         new IntConstant(42),
                         new Symbol(STAR),
                         new IntConstant(56)))));
+    }
+
+    @Test
+    public void shouldTokenizeParenthesis() {
+        assertThat(
+                tokenize("2 * (5 + 6)"),
+                is(equalTo(List.of(
+                        new IntConstant(2),
+                        new Symbol(STAR),
+                        new Symbol(LEFT_PARENTHESIS),
+                        new IntConstant(5),
+                        new Symbol(PLUS),
+                        new IntConstant(6),
+                        new Symbol(RIGHT_PARENTHESIS)))));
     }
 }
