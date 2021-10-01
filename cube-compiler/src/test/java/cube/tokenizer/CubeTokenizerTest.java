@@ -25,7 +25,7 @@ public class CubeTokenizerTest {
     @Test
     public void shouldTokenizeZero() {
         assertThat(
-                tokenize("0 "),
+                tokenize("0"),
                 is(equalTo(List.of(
                         new IntConstant(0)))));
     }
