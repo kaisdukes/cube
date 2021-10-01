@@ -1,6 +1,7 @@
 package cube.tokenizer;
 
 import cube.expressions.*;
+import cube.language.SymbolType;
 
 import java.util.ArrayList;
 import java.util.List;

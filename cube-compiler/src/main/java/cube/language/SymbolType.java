@@ -1,4 +1,4 @@
-package cube.expressions;
+package cube.language;
 
 import java.util.HashMap;
 import java.util.Map;

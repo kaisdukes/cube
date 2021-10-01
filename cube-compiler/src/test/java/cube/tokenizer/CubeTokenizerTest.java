@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static cube.expressions.SymbolType.*;
+import static cube.language.SymbolType.*;
 import static cube.tokenizer.CubeTokenizer.tokenize;
 import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;

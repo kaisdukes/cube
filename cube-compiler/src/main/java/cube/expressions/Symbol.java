@@ -1,5 +1,7 @@
 package cube.expressions;
 
+import cube.language.SymbolType;
+
 import static cube.expressions.ExpressionType.SYMBOL;
 
 public class Symbol extends Expression {
