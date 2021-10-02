@@ -35,10 +35,17 @@ public class CubeFormatter {
     }
 
     private void formatBinaryExpression(final BinaryExpression expression) {
-        format(expression.getLeft());
+        formatWithBrackets(expression.getLeft());
         text.append(' ');
         text.append(expression.getOperatorType().getText());
         text.append(' ');
-        format(expression.getRight());
+        formatWithBrackets(expression.getRight());
+    }
+
+    private void formatWithBrackets(final Expression expression) {
+        final var brackets = expression instanceof BinaryExpression;
+        if (brackets) text.append('(');
+        format(expression);
+        if (brackets) text.append(')');
     }
 }

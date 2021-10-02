@@ -67,4 +67,14 @@ public class CubeFormatterTest {
                 new BinaryExpression(EQUALITY, new Identifier("x"), new Identifier("y")).toString(),
                 is(equalTo("x == y")));
     }
+
+    @Test
+    public void shouldFormatNestedBinaryExpression() {
+        assertThat(
+                new BinaryExpression(
+                        MULTIPLY,
+                        new UnaryExpression(NEGATE, new Identifier("a")),
+                        new BinaryExpression(ADD, new Identifier("x"), new Identifier("y"))).toString(),
+                is(equalTo("-a * (x + y)")));
+    }
 }
