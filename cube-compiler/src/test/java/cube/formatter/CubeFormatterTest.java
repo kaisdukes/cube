@@ -4,8 +4,7 @@ import cube.expressions.*;
 import org.junit.jupiter.api.Test;
 
 import static cube.language.KeywordType.FUNCTION;
-import static cube.language.OperatorType.NEGATE;
-import static cube.language.OperatorType.NOT;
+import static cube.language.OperatorType.*;
 import static cube.language.SymbolType.PLUS;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -53,5 +52,12 @@ public class CubeFormatterTest {
         assertThat(
                 new UnaryExpression(NOT, new Identifier("x")).toString(),
                 is(equalTo("not x")));
+    }
+
+    @Test
+    public void shouldFormatBinaryExpression() {
+        assertThat(
+                new BinaryExpression(ADD, new Identifier("x"), new Identifier("y")).toString(),
+                is(equalTo("x + y")));
     }
 }

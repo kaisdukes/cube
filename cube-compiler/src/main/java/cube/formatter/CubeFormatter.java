@@ -15,6 +15,7 @@ public class CubeFormatter {
             case KEYWORD -> text.append(((Keyword) expression).getKeywordType().getText());
             case IDENTIFIER -> text.append(((Identifier) expression).getText());
             case UNARY_EXPRESSION -> formatUnaryExpression((UnaryExpression) expression);
+            case BINARY_EXPRESSION -> formatBinaryExpression((BinaryExpression) expression);
             default -> throw new UnsupportedOperationException(
                     "The expression type " + expression.getExpressionType() + " is not supported.");
         }
@@ -31,5 +32,13 @@ public class CubeFormatter {
             text.append(' ');
         }
         format(expression.getExpression());
+    }
+
+    private void formatBinaryExpression(final BinaryExpression expression) {
+        format(expression.getLeft());
+        text.append(' ');
+        text.append(expression.getOperatorType().getText());
+        text.append(' ');
+        format(expression.getRight());
     }
 }

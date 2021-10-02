@@ -5,5 +5,6 @@ public enum ExpressionType {
     SYMBOL,
     KEYWORD,
     IDENTIFIER,
-    UNARY_EXPRESSION
+    UNARY_EXPRESSION,
+    BINARY_EXPRESSION
 }
