@@ -60,4 +60,11 @@ public class CubeFormatterTest {
                 new BinaryExpression(ADD, new Identifier("x"), new Identifier("y")).toString(),
                 is(equalTo("x + y")));
     }
+
+    @Test
+    public void shouldFormatEquality() {
+        assertThat(
+                new BinaryExpression(EQUALITY, new Identifier("x"), new Identifier("y")).toString(),
+                is(equalTo("x == y")));
+    }
 }

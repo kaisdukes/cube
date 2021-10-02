@@ -4,6 +4,7 @@ public enum OperatorType {
     ADD("+"),
     AND("and"),
     DIVIDE("/"),
+    EQUALITY("=="),
     MODULO("%"),
     MULTIPLY("*"),
     NEGATE("-"),
