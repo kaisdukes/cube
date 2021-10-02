@@ -1,12 +1,11 @@
 package cube.formatter;
 
-import cube.expressions.Identifier;
-import cube.expressions.IntConstant;
-import cube.expressions.Keyword;
-import cube.expressions.Symbol;
+import cube.expressions.*;
 import org.junit.jupiter.api.Test;
 
 import static cube.language.KeywordType.FUNCTION;
+import static cube.language.OperatorType.NEGATE;
+import static cube.language.OperatorType.NOT;
 import static cube.language.SymbolType.PLUS;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -40,5 +39,19 @@ public class CubeFormatterTest {
         assertThat(
                 new Identifier("xyz").toString(),
                 is(equalTo("xyz")));
+    }
+
+    @Test
+    public void shouldFormatNegation() {
+        assertThat(
+                new UnaryExpression(NEGATE, new Identifier("x")).toString(),
+                is(equalTo("-x")));
+    }
+
+    @Test
+    public void shouldFormatNotOperator() {
+        assertThat(
+                new UnaryExpression(NOT, new Identifier("x")).toString(),
+                is(equalTo("not x")));
     }
 }

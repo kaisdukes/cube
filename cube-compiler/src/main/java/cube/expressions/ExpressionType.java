@@ -4,5 +4,6 @@ public enum ExpressionType {
     INT_CONSTANT,
     SYMBOL,
     KEYWORD,
-    IDENTIFIER
+    IDENTIFIER,
+    UNARY_EXPRESSION
 }
