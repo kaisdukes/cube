@@ -31,4 +31,15 @@ public class CubeParserTest {
                         new Identifier("a"),
                         new Identifier("b")))));
     }
+
+    @Test
+    public void shouldParseParenthesis() {
+        assertThat(
+                parse("a * (b + c)"),
+                is(equalTo(new BinaryExpression(MULTIPLY,
+                        new Identifier("a"),
+                        new BinaryExpression(ADD,
+                                new Identifier("b"),
+                                new Identifier("c"))))));
+    }
 }

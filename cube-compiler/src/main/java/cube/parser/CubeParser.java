@@ -8,8 +8,7 @@ import static cube.expressions.ExpressionType.IDENTIFIER;
 import static cube.expressions.ExpressionType.INT_CONSTANT;
 import static cube.language.Precedence.PRODUCT;
 import static cube.language.Precedence.SUM;
-import static cube.language.SymbolType.PLUS;
-import static cube.language.SymbolType.STAR;
+import static cube.language.SymbolType.*;
 
 public class CubeParser extends PrattParser {
 
@@ -30,6 +29,7 @@ public class CubeParser extends PrattParser {
         // prefix
         add(IDENTIFIER, new TerminalParser());
         add(INT_CONSTANT, new TerminalParser());
+        add(LEFT_PARENTHESIS, new ParenthesisParser());
 
         // infix
         infix(PLUS, SUM);

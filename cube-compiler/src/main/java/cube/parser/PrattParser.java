@@ -9,8 +9,11 @@ import cube.tokenizer.CubeTokenizer;
 
 import java.util.*;
 
+import static cube.expressions.ExpressionType.SYMBOL;
+
 public abstract class PrattParser {
     private final Map<ExpressionType, PrefixParser> tokenPrefixParsers = new HashMap<>();
+    private final Map<SymbolType, PrefixParser> symbolPrefixParsers = new HashMap<>();
     private final Map<SymbolType, InfixParser> symbolInfixParsers = new HashMap<>();
     private final CubeTokenizer tokenizer;
     private final List<Expression> read = new ArrayList<>();
@@ -25,10 +28,12 @@ public abstract class PrattParser {
 
     public Expression parseExpression(final int precedence) {
         Expression token = next();
-        PrefixParser prefix = tokenPrefixParsers.get(token.getExpressionType());
+        PrefixParser prefix = token instanceof Symbol
+                ? symbolPrefixParsers.get(((Symbol) token).getSymbolType())
+                : tokenPrefixParsers.get(token.getExpressionType());
         if (prefix == null)
             throw new UnsupportedOperationException(
-                    "The token type " + token.getExpressionType() + " is not supported.");
+                    "The token " + token.getExpressionType() + ' ' + token + " is not supported.");
 
         Expression left = prefix.parse(this, token);
 
@@ -46,17 +51,21 @@ public abstract class PrattParser {
         tokenPrefixParsers.put(tokenType, parser);
     }
 
+    protected void add(final SymbolType symbolType, final PrefixParser parser) {
+        symbolPrefixParsers.put(symbolType, parser);
+    }
+
     protected void add(final SymbolType symbolType, final InfixParser parser) {
         symbolInfixParsers.put(symbolType, parser);
     }
 
-    private int getPrecedence() {
-        final var next = lookAhead(0);
-        if (!(next instanceof EofToken)) {
-            InfixParser parser = symbolInfixParsers.get(((Symbol) next).getSymbolType());
-            if (parser != null) return parser.getPrecedence();
+    public Expression next(final SymbolType symbolType) {
+        Expression token = lookAhead(0);
+        if (token.getExpressionType() != SYMBOL || ((Symbol) token).getSymbolType() != symbolType) {
+            throw new RuntimeException(
+                    "Expected " + symbolType + " not " + token.getExpressionType() + ' ' + token);
         }
-        return 0;
+        return next();
     }
 
     private Expression next() {
@@ -71,4 +80,14 @@ public abstract class PrattParser {
         }
         return read.get(n);
     }
+
+    private int getPrecedence() {
+        final var next = lookAhead(0);
+        if (!(next instanceof EofToken)) {
+            InfixParser parser = symbolInfixParsers.get(((Symbol) next).getSymbolType());
+            if (parser != null) return parser.getPrecedence();
+        }
+        return 0;
+    }
+
 }
