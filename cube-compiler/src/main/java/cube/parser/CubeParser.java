@@ -5,7 +5,10 @@ import cube.language.SymbolType;
 import cube.tokenizer.CubeTokenizer;
 
 import static cube.expressions.ExpressionType.IDENTIFIER;
+import static cube.expressions.ExpressionType.INT_CONSTANT;
 import static cube.language.Precedence.PRODUCT;
+import static cube.language.Precedence.SUM;
+import static cube.language.SymbolType.PLUS;
 import static cube.language.SymbolType.STAR;
 
 public class CubeParser extends PrattParser {
@@ -25,9 +28,11 @@ public class CubeParser extends PrattParser {
         super(tokenizer);
 
         // prefix
-        add(IDENTIFIER, new IdentifierParser());
+        add(IDENTIFIER, new TerminalParser());
+        add(INT_CONSTANT, new TerminalParser());
 
         // infix
+        infix(PLUS, SUM);
         infix(STAR, PRODUCT);
     }
 

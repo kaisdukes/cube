@@ -28,7 +28,7 @@ public abstract class PrattParser {
         PrefixParser prefix = tokenPrefixParsers.get(token.getExpressionType());
         if (prefix == null)
             throw new UnsupportedOperationException(
-                    "The token type " + token.getExpressionType() + " is not spported.");
+                    "The token type " + token.getExpressionType() + " is not supported.");
 
         Expression left = prefix.parse(this, token);
 
