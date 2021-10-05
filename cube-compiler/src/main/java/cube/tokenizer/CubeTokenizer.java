@@ -29,14 +29,8 @@ public class CubeTokenizer {
         while (true) {
             tokenizer.next();
             ExpressionType tokenType = tokenizer.getTokenType();
-            if (tokenType == null) break;
-            switch (tokenType) {
-                case SYMBOL -> tokens.add(new Symbol(SymbolType.of(tokenizer.getTokenText())));
-                case INT_CONSTANT -> tokens.add(new IntConstant(parseInt(tokenizer.getTokenText())));
-                case KEYWORD -> tokens.add(new Keyword(KeywordType.of(tokenizer.getTokenText())));
-                case IDENTIFIER -> tokens.add(new Identifier(tokenizer.getTokenText()));
-                default -> throw new UnsupportedOperationException("Unsupported token type: " + tokenType);
-            }
+            if (tokenType == EOF) break;
+            tokens.add(tokenizer.getToken());
         }
         return tokens;
     }
@@ -56,7 +50,7 @@ public class CubeTokenizer {
 
         // done?
         if (!canRead()) {
-            tokenType = null;
+            tokenType = EOF;
             return;
         }
 
@@ -64,6 +58,17 @@ public class CubeTokenizer {
         if (digit(ch)) readNumber();
         else if (identifierStart(ch)) readIdentifierOrKeyword();
         else readSymbol(ch);
+    }
+
+    public Expression getToken() {
+        if (tokenType == EOF) return new EofToken();
+        return switch (tokenType) {
+            case SYMBOL -> new Symbol(SymbolType.of(getTokenText()));
+            case INT_CONSTANT -> new IntConstant(parseInt(getTokenText()));
+            case KEYWORD -> new Keyword(KeywordType.of(getTokenText()));
+            case IDENTIFIER -> new Identifier(getTokenText());
+            default -> throw new UnsupportedOperationException("Unsupported token type: " + tokenType);
+        };
     }
 
     public ExpressionType getTokenType() {

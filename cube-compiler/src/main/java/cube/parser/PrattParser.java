@@ -1,20 +1,22 @@
 package cube.parser;
 
+import cube.expressions.EofToken;
 import cube.expressions.Expression;
 import cube.expressions.ExpressionType;
 import cube.expressions.Symbol;
 import cube.language.SymbolType;
+import cube.tokenizer.CubeTokenizer;
 
 import java.util.*;
 
 public abstract class PrattParser {
     private final Map<ExpressionType, PrefixParser> tokenPrefixParsers = new HashMap<>();
     private final Map<SymbolType, InfixParser> symbolInfixParsers = new HashMap<>();
-    private final Iterator<Expression> tokens;
+    private final CubeTokenizer tokenizer;
     private final List<Expression> read = new ArrayList<>();
 
-    protected PrattParser(final Iterator<Expression> tokens) {
-        this.tokens = tokens;
+    protected PrattParser(CubeTokenizer tokenizer) {
+        this.tokenizer = tokenizer;
     }
 
     public Expression parseExpression() {
@@ -50,7 +52,7 @@ public abstract class PrattParser {
 
     private int getPrecedence() {
         final var next = lookAhead(0);
-        if (next != null) {
+        if (!(next instanceof EofToken)) {
             InfixParser parser = symbolInfixParsers.get(((Symbol) next).getSymbolType());
             if (parser != null) return parser.getPrecedence();
         }
@@ -64,11 +66,8 @@ public abstract class PrattParser {
 
     private Expression lookAhead(int n) {
         while (read.size() <= n) {
-            if (!tokens.hasNext()) {
-                read.add(null);
-            } else {
-                read.add(tokens.next());
-            }
+            tokenizer.next();
+            read.add(tokenizer.getToken());
         }
         return read.get(n);
     }

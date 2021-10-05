@@ -6,5 +6,6 @@ public enum ExpressionType {
     KEYWORD,
     IDENTIFIER,
     UNARY_EXPRESSION,
-    BINARY_EXPRESSION
+    BINARY_EXPRESSION,
+    EOF
 }
