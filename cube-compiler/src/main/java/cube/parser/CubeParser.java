@@ -1,13 +1,12 @@
 package cube.parser;
 
 import cube.expressions.Expression;
+import cube.language.Precedence;
 import cube.language.SymbolType;
 import cube.tokenizer.CubeTokenizer;
 
 import static cube.expressions.ExpressionType.IDENTIFIER;
 import static cube.expressions.ExpressionType.INT_CONSTANT;
-import static cube.language.Precedence.PRODUCT;
-import static cube.language.Precedence.SUM;
 import static cube.language.SymbolType.*;
 
 public class CubeParser extends PrattParser {
@@ -32,10 +31,10 @@ public class CubeParser extends PrattParser {
         add(LEFT_PARENTHESIS, new ParenthesisParser());
 
         // infix
-        infix(PLUS, SUM);
-        infix(DASH, SUM);
-        infix(STAR, PRODUCT);
-        infix(SLASH, PRODUCT);
+        infix(PLUS, Precedence.SUM);
+        infix(DASH, Precedence.SUM);
+        infix(STAR, Precedence.PRODUCT);
+        infix(SLASH, Precedence.PRODUCT);
     }
 
     private void infix(final SymbolType tokenType, final int precedence) {
