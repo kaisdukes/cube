@@ -4,12 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum KeywordType {
+    AND,
     AS,
     ELSE,
     END,
     FUNCTION,
     IF,
     INT,
+    OR,
     OUTPUT,
     THEN;
 

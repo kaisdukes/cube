@@ -119,7 +119,7 @@ public class CubeTokenizerTest {
     }
 
     @Test
-    public void shouldTokenizeKeywords() {
+    public void shouldTokenizeFunctionKeywords() {
         assertThat(
                 tokenize("function foo as int"),
                 is(equalTo(List.of(
@@ -127,6 +127,18 @@ public class CubeTokenizerTest {
                         new Identifier("foo"),
                         new Keyword(AS),
                         new Keyword(INT)))));
+    }
+
+    @Test
+    public void shouldTokenizeLogicalKeywords() {
+        assertThat(
+                tokenize("a and b or c"),
+                is(equalTo(List.of(
+                        new Identifier("a"),
+                        new Keyword(AND),
+                        new Identifier("b"),
+                        new Keyword(OR),
+                        new Identifier("c")))));
     }
 
     @Test
