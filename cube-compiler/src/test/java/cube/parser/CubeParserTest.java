@@ -61,6 +61,15 @@ public class CubeParserTest {
     }
 
     @Test
+    public void shouldParseModulo() {
+        assertThat(
+                parse("a % 4"),
+                is(equalTo(new BinaryExpression(MODULO,
+                        new Identifier("a"),
+                        new IntConstant(4)))));
+    }
+
+    @Test
     public void shouldParseAndOrLogicalExpression() {
         assertThat(
                 parse("a and b or c"),

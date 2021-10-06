@@ -8,6 +8,7 @@ public enum SymbolType {
     DASH("-"),
     STAR("*"),
     SLASH("/"),
+    PERCENT("%"),
     LEFT_PARENTHESIS("("),
     RIGHT_PARENTHESIS(")");
 

@@ -38,6 +38,7 @@ public class CubeParser extends PrattParser {
         infix(DASH, Precedence.SUM);
         infix(STAR, Precedence.PRODUCT);
         infix(SLASH, Precedence.PRODUCT);
+        infix(PERCENT, Precedence.PRODUCT);
         infix(OR, Precedence.OR);
         infix(AND, Precedence.AND);
     }

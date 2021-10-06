@@ -156,4 +156,12 @@ public class CubeTokenizerTest {
                 is(equalTo(List.of(
                         new Symbol(SLASH)))));
     }
+
+    @Test
+    public void shouldTokenizeModuloSign() {
+        assertThat(
+                tokenize("%"),
+                is(equalTo(List.of(
+                        new Symbol(PERCENT)))));
+    }
 }

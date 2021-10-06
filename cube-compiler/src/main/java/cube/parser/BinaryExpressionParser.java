@@ -48,6 +48,7 @@ public class BinaryExpressionParser implements InfixParser {
             case DASH -> SUBTRACT;
             case STAR -> MULTIPLY;
             case SLASH -> DIVIDE;
+            case PERCENT -> MODULO;
             default -> throw new UnsupportedOperationException(
                     "The symbol type " + symbol.getSymbolType() + " is not supported.");
         };
