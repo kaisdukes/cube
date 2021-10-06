@@ -33,6 +33,7 @@ public class CubeParser extends PrattParser {
 
         // infix
         infix(PLUS, SUM);
+        infix(DASH, SUM);
         infix(STAR, PRODUCT);
     }
 

@@ -5,6 +5,7 @@ import java.util.Map;
 
 public enum SymbolType {
     PLUS("+"),
+    DASH("-"),
     STAR("*"),
     LEFT_PARENTHESIS("("),
     RIGHT_PARENTHESIS(")");

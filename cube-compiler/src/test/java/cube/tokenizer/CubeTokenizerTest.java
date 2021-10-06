@@ -128,4 +128,12 @@ public class CubeTokenizerTest {
                         new Keyword(AS),
                         new Keyword(INT)))));
     }
+
+    @Test
+    public void shouldTokenizeDashSign() {
+        assertThat(
+                tokenize("-"),
+                is(equalTo(List.of(
+                        new Symbol(DASH)))));
+    }
 }

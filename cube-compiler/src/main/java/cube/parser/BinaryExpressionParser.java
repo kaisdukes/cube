@@ -5,8 +5,7 @@ import cube.expressions.Expression;
 import cube.expressions.Symbol;
 import cube.language.OperatorType;
 
-import static cube.language.OperatorType.ADD;
-import static cube.language.OperatorType.MULTIPLY;
+import static cube.language.OperatorType.*;
 
 public class BinaryExpressionParser implements InfixParser {
     private final int precedence;
@@ -34,6 +33,7 @@ public class BinaryExpressionParser implements InfixParser {
         final var symbol = (Symbol) token;
         return switch (symbol.getSymbolType()) {
             case PLUS -> ADD;
+            case DASH -> SUBTRACT;
             case STAR -> MULTIPLY;
             default -> throw new UnsupportedOperationException(
                     "The symbol type " + symbol.getSymbolType() + " is not supported.");

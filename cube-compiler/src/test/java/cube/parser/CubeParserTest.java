@@ -5,8 +5,7 @@ import cube.expressions.Identifier;
 import cube.expressions.IntConstant;
 import org.junit.jupiter.api.Test;
 
-import static cube.language.OperatorType.ADD;
-import static cube.language.OperatorType.MULTIPLY;
+import static cube.language.OperatorType.*;
 import static cube.parser.CubeParser.parse;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -41,5 +40,14 @@ public class CubeParserTest {
                         new BinaryExpression(ADD,
                                 new Identifier("b"),
                                 new Identifier("c"))))));
+    }
+
+    @Test
+    public void shouldParseSubtraction() {
+        assertThat(
+                parse("x - y"),
+                is(equalTo(new BinaryExpression(SUBTRACT,
+                        new Identifier("x"),
+                        new Identifier("y")))));
     }
 }
