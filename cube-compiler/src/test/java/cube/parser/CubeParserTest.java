@@ -59,4 +59,15 @@ public class CubeParserTest {
                         new Identifier("a"),
                         new IntConstant(2)))));
     }
+
+    @Test
+    public void shouldParseAndOrLogicalExpression() {
+        assertThat(
+                parse("a and b or c"),
+                is(equalTo(new BinaryExpression(OR,
+                        new BinaryExpression(AND,
+                                new Identifier("a"),
+                                new Identifier("b")),
+                        new Identifier("c")))));
+    }
 }

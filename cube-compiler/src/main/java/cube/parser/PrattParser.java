@@ -1,9 +1,7 @@
 package cube.parser;
 
-import cube.expressions.EofToken;
-import cube.expressions.Expression;
-import cube.expressions.ExpressionType;
-import cube.expressions.Symbol;
+import cube.expressions.*;
+import cube.language.KeywordType;
 import cube.language.SymbolType;
 import cube.tokenizer.CubeTokenizer;
 
@@ -15,6 +13,7 @@ public abstract class PrattParser {
     private final Map<ExpressionType, PrefixParser> tokenPrefixParsers = new HashMap<>();
     private final Map<SymbolType, PrefixParser> symbolPrefixParsers = new HashMap<>();
     private final Map<SymbolType, InfixParser> symbolInfixParsers = new HashMap<>();
+    private final Map<KeywordType, InfixParser> keywordInfixParsers = new HashMap<>();
     private final CubeTokenizer tokenizer;
     private final List<Expression> read = new ArrayList<>();
 
@@ -39,8 +38,9 @@ public abstract class PrattParser {
 
         while (precedence < getPrecedence()) {
             token = next();
-
-            InfixParser infix = symbolInfixParsers.get(((Symbol) token).getSymbolType());
+            InfixParser infix = token instanceof Keyword
+                    ? keywordInfixParsers.get(((Keyword) token).getKeywordType())
+                    : symbolInfixParsers.get(((Symbol) token).getSymbolType());
             left = infix.parse(this, left, token);
         }
 
@@ -57,6 +57,10 @@ public abstract class PrattParser {
 
     protected void add(final SymbolType symbolType, final InfixParser parser) {
         symbolInfixParsers.put(symbolType, parser);
+    }
+
+    protected void add(final KeywordType keywordType, final InfixParser parser) {
+        keywordInfixParsers.put(keywordType, parser);
     }
 
     public Expression next(final SymbolType symbolType) {
@@ -83,10 +87,11 @@ public abstract class PrattParser {
 
     private int getPrecedence() {
         final var next = lookAhead(0);
-        if (!(next instanceof EofToken)) {
-            InfixParser parser = symbolInfixParsers.get(((Symbol) next).getSymbolType());
-            if (parser != null) return parser.getPrecedence();
-        }
+        if (next instanceof EofToken) return 0;
+        InfixParser parser = next instanceof Keyword
+                ? keywordInfixParsers.get(((Keyword) next).getKeywordType())
+                : symbolInfixParsers.get(((Symbol) next).getSymbolType());
+        if (parser != null) return parser.getPrecedence();
         return 0;
     }
 
