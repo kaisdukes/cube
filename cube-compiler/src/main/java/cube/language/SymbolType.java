@@ -7,6 +7,7 @@ public enum SymbolType {
     PLUS("+"),
     DASH("-"),
     STAR("*"),
+    SLASH("/"),
     LEFT_PARENTHESIS("("),
     RIGHT_PARENTHESIS(")");
 

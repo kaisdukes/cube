@@ -35,6 +35,7 @@ public class CubeParser extends PrattParser {
         infix(PLUS, SUM);
         infix(DASH, SUM);
         infix(STAR, PRODUCT);
+        infix(SLASH, PRODUCT);
     }
 
     private void infix(final SymbolType tokenType, final int precedence) {

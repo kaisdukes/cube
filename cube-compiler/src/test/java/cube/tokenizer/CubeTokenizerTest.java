@@ -136,4 +136,12 @@ public class CubeTokenizerTest {
                 is(equalTo(List.of(
                         new Symbol(DASH)))));
     }
+
+    @Test
+    public void shouldTokenizeSlash() {
+        assertThat(
+                tokenize("/"),
+                is(equalTo(List.of(
+                        new Symbol(SLASH)))));
+    }
 }

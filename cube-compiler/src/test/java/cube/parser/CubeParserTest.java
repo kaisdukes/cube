@@ -50,4 +50,13 @@ public class CubeParserTest {
                         new Identifier("x"),
                         new Identifier("y")))));
     }
+
+    @Test
+    public void shouldParseDivision() {
+        assertThat(
+                parse("a / 2"),
+                is(equalTo(new BinaryExpression(DIVIDE,
+                        new Identifier("a"),
+                        new IntConstant(2)))));
+    }
 }

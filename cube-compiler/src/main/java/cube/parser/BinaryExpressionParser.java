@@ -35,6 +35,7 @@ public class BinaryExpressionParser implements InfixParser {
             case PLUS -> ADD;
             case DASH -> SUBTRACT;
             case STAR -> MULTIPLY;
+            case SLASH -> DIVIDE;
             default -> throw new UnsupportedOperationException(
                     "The symbol type " + symbol.getSymbolType() + " is not supported.");
         };
