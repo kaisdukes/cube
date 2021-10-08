@@ -19,10 +19,10 @@ public class FunctionCallParser implements InfixParser {
     @Override
     public Expression parse(final PrattParser parser, final Expression left, final Expression token) {
         final var parameters = new ArrayList<Expression>();
-        if (!parser.is(RIGHT_PARENTHESIS)) {
+        if (!parser.nextIs(RIGHT_PARENTHESIS)) {
             do {
                 parameters.add(parser.parseExpression());
-            } while (parser.is(COMMA));
+            } while (parser.nextIs(COMMA));
             parser.next(RIGHT_PARENTHESIS);
         }
         return new FunctionCallExpression(left, parameters);
