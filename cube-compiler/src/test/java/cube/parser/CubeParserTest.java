@@ -110,4 +110,14 @@ public class CubeParserTest {
                         new Identifier("bar"),
                         List.of(new Identifier("x"), new Identifier("y"))))));
     }
+
+    @Test
+    public void shouldParseBinaryExpressionOfFunctionCalls() {
+        assertThat(
+                parse("foo() + bar()"),
+                is(equalTo(
+                        new BinaryExpression(ADD,
+                                new FunctionCallExpression(new Identifier("foo"), emptyList()),
+                                new FunctionCallExpression(new Identifier("bar"), emptyList())))));
+    }
 }
