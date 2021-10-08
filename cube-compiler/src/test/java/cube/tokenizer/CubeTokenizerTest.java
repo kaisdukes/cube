@@ -132,12 +132,13 @@ public class CubeTokenizerTest {
     @Test
     public void shouldTokenizeLogicalKeywords() {
         assertThat(
-                tokenize("a and b or c"),
+                tokenize("a and b or not c"),
                 is(equalTo(List.of(
                         new Identifier("a"),
                         new Keyword(AND),
                         new Identifier("b"),
                         new Keyword(OR),
+                        new Keyword(NOT),
                         new Identifier("c")))));
     }
 

@@ -5,5 +5,6 @@ public class Precedence {
     public static final int AND = 2;
     public static final int SUM = 3;
     public static final int PRODUCT = 4;
-    public static final int FUNCTION_CALL = 5;
+    public static final int PREFIX = 5;
+    public static final int FUNCTION_CALL = 6;
 }

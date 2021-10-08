@@ -12,6 +12,7 @@ import static cube.expressions.ExpressionType.SYMBOL;
 public abstract class PrattParser {
     private final Map<ExpressionType, PrefixParser> tokenPrefixParsers = new HashMap<>();
     private final Map<SymbolType, PrefixParser> symbolPrefixParsers = new HashMap<>();
+    private final Map<KeywordType, PrefixParser> keywordPrefixParsers = new HashMap<>();
     private final Map<SymbolType, InfixParser> symbolInfixParsers = new HashMap<>();
     private final Map<KeywordType, InfixParser> keywordInfixParsers = new HashMap<>();
     private final CubeTokenizer tokenizer;
@@ -26,16 +27,21 @@ public abstract class PrattParser {
     }
 
     public Expression parseExpression(final int precedence) {
+
+        // token
         Expression token = next();
-        PrefixParser prefix = token instanceof Symbol
-                ? symbolPrefixParsers.get(((Symbol) token).getSymbolType())
-                : tokenPrefixParsers.get(token.getExpressionType());
+
+        // prefix
+        PrefixParser prefix;
+        if (token instanceof Symbol) prefix = symbolPrefixParsers.get(((Symbol) token).getSymbolType());
+        else if (token instanceof Keyword) prefix = keywordPrefixParsers.get(((Keyword) token).getKeywordType());
+        else prefix = tokenPrefixParsers.get(token.getExpressionType());
         if (prefix == null)
             throw new UnsupportedOperationException(
                     "The token " + token.getExpressionType() + ' ' + token + " is not supported.");
-
         Expression left = prefix.parse(this, token);
 
+        // infix
         while (precedence < getPrecedence()) {
             token = next();
             InfixParser infix = token instanceof Keyword
@@ -43,7 +49,6 @@ public abstract class PrattParser {
                     : symbolInfixParsers.get(((Symbol) token).getSymbolType());
             left = infix.parse(this, left, token);
         }
-
         return left;
     }
 
@@ -53,6 +58,10 @@ public abstract class PrattParser {
 
     protected void add(final SymbolType symbolType, final PrefixParser parser) {
         symbolPrefixParsers.put(symbolType, parser);
+    }
+
+    protected void add(final KeywordType keywordType, final PrefixParser parser) {
+        keywordPrefixParsers.put(keywordType, parser);
     }
 
     protected void add(final SymbolType symbolType, final InfixParser parser) {

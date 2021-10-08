@@ -13,7 +13,8 @@ public enum KeywordType {
     INT,
     OR,
     OUTPUT,
-    THEN;
+    THEN,
+    NOT;
 
     private static final Map<String, KeywordType> keywordMap = new HashMap<>();
 

@@ -1,9 +1,6 @@
 package cube.parser;
 
-import cube.expressions.BinaryExpression;
-import cube.expressions.FunctionCallExpression;
-import cube.expressions.Identifier;
-import cube.expressions.IntConstant;
+import cube.expressions.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -82,6 +79,13 @@ public class CubeParserTest {
                                 new Identifier("a"),
                                 new Identifier("b")),
                         new Identifier("c")))));
+    }
+
+    @Test
+    public void shouldParseNotLogicalExpression() {
+        assertThat(
+                parse("not x"),
+                is(equalTo(new UnaryExpression(NOT, new Identifier("x")))));
     }
 
     @Test

@@ -8,8 +8,7 @@ import cube.tokenizer.CubeTokenizer;
 
 import static cube.expressions.ExpressionType.IDENTIFIER;
 import static cube.expressions.ExpressionType.INT_CONSTANT;
-import static cube.language.KeywordType.AND;
-import static cube.language.KeywordType.OR;
+import static cube.language.KeywordType.*;
 import static cube.language.SymbolType.*;
 
 public class CubeParser extends PrattParser {
@@ -32,6 +31,7 @@ public class CubeParser extends PrattParser {
         add(IDENTIFIER, new TerminalParser());
         add(INT_CONSTANT, new TerminalParser());
         add(LEFT_PARENTHESIS, new ParenthesisParser());
+        prefix(NOT, Precedence.PREFIX);
 
         // infix
         infix(PLUS, Precedence.SUM);
@@ -42,6 +42,10 @@ public class CubeParser extends PrattParser {
         infix(OR, Precedence.OR);
         infix(AND, Precedence.AND);
         add(LEFT_PARENTHESIS, new FunctionCallParser());
+    }
+
+    private void prefix(KeywordType keywordType, int precedence) {
+        add(keywordType, new UnaryExpressionParser(precedence));
     }
 
     private void infix(final SymbolType tokenType, final int precedence) {
