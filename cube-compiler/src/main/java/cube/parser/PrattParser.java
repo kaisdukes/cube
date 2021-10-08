@@ -112,5 +112,4 @@ public abstract class PrattParser {
         if (parser != null) return parser.getPrecedence();
         return 0;
     }
-
 }
