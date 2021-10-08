@@ -63,8 +63,17 @@ public abstract class PrattParser {
         keywordInfixParsers.put(keywordType, parser);
     }
 
+    public boolean is(SymbolType symbolType) {
+        final var token = lookAhead(0);
+        if (token.getExpressionType() != SYMBOL || ((Symbol) token).getSymbolType() != symbolType) {
+            return false;
+        }
+        next();
+        return true;
+    }
+
     public Expression next(final SymbolType symbolType) {
-        Expression token = lookAhead(0);
+        final var token = lookAhead(0);
         if (token.getExpressionType() != SYMBOL || ((Symbol) token).getSymbolType() != symbolType) {
             throw new RuntimeException(
                     "Expected " + symbolType + " not " + token.getExpressionType() + ' ' + token);

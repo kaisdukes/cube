@@ -1,12 +1,16 @@
 package cube.parser;
 
 import cube.expressions.BinaryExpression;
+import cube.expressions.FunctionCallExpression;
 import cube.expressions.Identifier;
 import cube.expressions.IntConstant;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static cube.language.OperatorType.*;
 import static cube.parser.CubeParser.parse;
+import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -78,5 +82,32 @@ public class CubeParserTest {
                                 new Identifier("a"),
                                 new Identifier("b")),
                         new Identifier("c")))));
+    }
+
+    @Test
+    public void shouldParseFunctionCallWithoutParameters() {
+        assertThat(
+                parse("foo()"),
+                is(equalTo(new FunctionCallExpression(
+                        new Identifier("foo"),
+                        emptyList()))));
+    }
+
+    @Test
+    public void shouldParseFunctionCallWithSingleParameter() {
+        assertThat(
+                parse("foo(a)"),
+                is(equalTo(new FunctionCallExpression(
+                        new Identifier("foo"),
+                        List.of(new Identifier("a"))))));
+    }
+
+    @Test
+    public void shouldParseFunctionCallWithTwoParameters() {
+        assertThat(
+                parse("bar(x, y)"),
+                is(equalTo(new FunctionCallExpression(
+                        new Identifier("bar"),
+                        List.of(new Identifier("x"), new Identifier("y"))))));
     }
 }

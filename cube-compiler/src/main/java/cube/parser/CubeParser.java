@@ -41,6 +41,7 @@ public class CubeParser extends PrattParser {
         infix(PERCENT, Precedence.PRODUCT);
         infix(OR, Precedence.OR);
         infix(AND, Precedence.AND);
+        add(LEFT_PARENTHESIS, new FunctionCallParser());
     }
 
     private void infix(final SymbolType tokenType, final int precedence) {

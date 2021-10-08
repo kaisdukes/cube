@@ -3,6 +3,8 @@ package cube.formatter;
 import cube.expressions.*;
 import cube.language.OperatorType;
 
+import java.util.List;
+
 import static cube.language.OperatorType.NEGATE;
 
 public class CubeFormatter {
@@ -16,6 +18,7 @@ public class CubeFormatter {
             case IDENTIFIER -> text.append(((Identifier) expression).getText());
             case UNARY_EXPRESSION -> formatUnaryExpression((UnaryExpression) expression);
             case BINARY_EXPRESSION -> formatBinaryExpression((BinaryExpression) expression);
+            case FUNCTION_CALL -> formatFunctionCall((FunctionCallExpression) expression);
             default -> throw new UnsupportedOperationException(
                     "The expression type " + expression.getExpressionType() + " is not supported.");
         }
@@ -40,6 +43,17 @@ public class CubeFormatter {
         text.append(expression.getOperatorType().getText());
         text.append(' ');
         formatWithBrackets(expression.getRight());
+    }
+
+    private void formatFunctionCall(final FunctionCallExpression expression) {
+        format(expression.getTarget());
+        text.append('(');
+        final List<Expression> parameters = expression.getParameters();
+        for (int i = 0; i < parameters.size(); i++) {
+            if (i > 0) text.append(", ");
+            format(parameters.get(i));
+        }
+        text.append(')');
     }
 
     private void formatWithBrackets(final Expression expression) {

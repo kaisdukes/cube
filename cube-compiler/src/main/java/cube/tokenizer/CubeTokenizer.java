@@ -106,7 +106,8 @@ public class CubeTokenizer {
     }
 
     private void readSymbol(final char ch) {
-        if (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '%' || ch == '(' || ch == ')') {
+        if (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '%'
+                || ch == '(' || ch == ')' || ch == ',') {
             tokenType = SYMBOL;
             tokenStart = position;
             tokenEnd = ++position;

@@ -164,4 +164,12 @@ public class CubeTokenizerTest {
                 is(equalTo(List.of(
                         new Symbol(PERCENT)))));
     }
+
+    @Test
+    public void shouldTokenizeComma() {
+        assertThat(
+                tokenize(","),
+                is(equalTo(List.of(
+                        new Symbol(COMMA)))));
+    }
 }

@@ -10,7 +10,8 @@ public enum SymbolType {
     SLASH("/"),
     PERCENT("%"),
     LEFT_PARENTHESIS("("),
-    RIGHT_PARENTHESIS(")");
+    RIGHT_PARENTHESIS(")"),
+    COMMA(",");
 
     private final String text;
     private static final Map<String, SymbolType> symbolMap = new HashMap<>();

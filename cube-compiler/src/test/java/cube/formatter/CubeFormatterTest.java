@@ -3,9 +3,12 @@ package cube.formatter;
 import cube.expressions.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static cube.language.KeywordType.FUNCTION;
 import static cube.language.OperatorType.*;
 import static cube.language.SymbolType.PLUS;
+import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -76,5 +79,33 @@ public class CubeFormatterTest {
                         new UnaryExpression(NEGATE, new Identifier("a")),
                         new BinaryExpression(ADD, new Identifier("x"), new Identifier("y"))).toString(),
                 is(equalTo("-a * (x + y)")));
+    }
+
+    @Test
+    public void shouldFormatFunctionCallWithoutParameters() {
+        assertThat(
+                new FunctionCallExpression(
+                        new Identifier("foo"),
+                        emptyList()).toString(),
+                is(equalTo("foo()")));
+    }
+
+    @Test
+    public void shouldFormatFunctionCallWithSingleParameter() {
+        assertThat(
+                new FunctionCallExpression(
+                        new Identifier("foo"),
+                        List.of(new Identifier("a"))).toString(),
+                is(equalTo("foo(a)")));
+    }
+
+    @Test
+    public void shouldFormatFunctionCallWithTwoParameters() {
+        assertThat(
+                new FunctionCallExpression(
+                        new Identifier("bar"),
+                        List.of(new Identifier("x"), new Identifier("y")))
+                        .toString(),
+                is(equalTo("bar(x, y)")));
     }
 }
