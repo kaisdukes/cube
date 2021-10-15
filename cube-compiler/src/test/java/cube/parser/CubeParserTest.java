@@ -124,4 +124,13 @@ public class CubeParserTest {
                                 new FunctionCallExpression(new Identifier("foo"), emptyList()),
                                 new FunctionCallExpression(new Identifier("bar"), emptyList())))));
     }
+
+    @Test
+    public void shouldParseAssignment() {
+        assertThat(
+                parse("a = 2"),
+                is(equalTo(new BinaryExpression(ASSIGN,
+                        new Identifier("a"),
+                        new IntConstant(2)))));
+    }
 }

@@ -11,7 +11,8 @@ public enum SymbolType {
     PERCENT("%"),
     LEFT_PARENTHESIS("("),
     RIGHT_PARENTHESIS(")"),
-    COMMA(",");
+    COMMA(","),
+    EQUALS("=");
 
     private final String text;
     private static final Map<String, SymbolType> symbolMap = new HashMap<>();

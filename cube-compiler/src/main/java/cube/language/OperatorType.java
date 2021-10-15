@@ -3,6 +3,7 @@ package cube.language;
 public enum OperatorType {
     ADD("+"),
     AND("and"),
+    ASSIGN("="),
     DIVIDE("/"),
     EQUALITY("=="),
     MODULO("%"),

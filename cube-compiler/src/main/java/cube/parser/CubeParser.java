@@ -9,6 +9,7 @@ import cube.tokenizer.CubeTokenizer;
 import static cube.expressions.ExpressionType.IDENTIFIER;
 import static cube.expressions.ExpressionType.INT_CONSTANT;
 import static cube.language.KeywordType.*;
+import static cube.language.OperatorType.ASSIGN;
 import static cube.language.SymbolType.*;
 
 public class CubeParser extends PrattParser {
@@ -41,6 +42,7 @@ public class CubeParser extends PrattParser {
         infix(PERCENT, Precedence.PRODUCT);
         infix(OR, Precedence.OR);
         infix(AND, Precedence.AND);
+        infix(EQUALS, Precedence.ASSIGNMENT);
         add(LEFT_PARENTHESIS, new FunctionCallParser());
     }
 
