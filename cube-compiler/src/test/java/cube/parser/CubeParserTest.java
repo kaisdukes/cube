@@ -116,6 +116,19 @@ public class CubeParserTest {
     }
 
     @Test
+    public void shouldParseBinaryExpressionWithFunctionCall() {
+        assertThat(
+                parse("n * factorial(n - 1)"),
+                is(equalTo(new BinaryExpression(MULTIPLY,
+                        new Identifier("n"),
+                        new FunctionCallExpression(
+                                new Identifier("factorial"),
+                                List.of(new BinaryExpression(SUBTRACT,
+                                        new Identifier("n"),
+                                        new IntConstant(1))))))));
+    }
+
+    @Test
     public void shouldParseBinaryExpressionOfFunctionCalls() {
         assertThat(
                 parse("foo() + bar()"),
