@@ -142,4 +142,15 @@ public class CubeParserTest {
                         new Identifier("i"),
                         new IntConstant(0)))));
     }
+
+    @Test
+    public void shouldParseAssignmentWithEquality() {
+        assertThat(
+                parse("a = i == 0"),
+                is(equalTo(new BinaryExpression(ASSIGN,
+                        new Identifier("a"),
+                        new BinaryExpression(EQUALITY,
+                                new Identifier("i"),
+                                new IntConstant(0))))));
+    }
 }
