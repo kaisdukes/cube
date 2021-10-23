@@ -9,7 +9,6 @@ import cube.tokenizer.CubeTokenizer;
 import static cube.expressions.ExpressionType.IDENTIFIER;
 import static cube.expressions.ExpressionType.INT_CONSTANT;
 import static cube.language.KeywordType.*;
-import static cube.language.OperatorType.ASSIGN;
 import static cube.language.SymbolType.*;
 
 public class CubeParser extends PrattParser {
@@ -32,16 +31,16 @@ public class CubeParser extends PrattParser {
         add(IDENTIFIER, new TerminalParser());
         add(INT_CONSTANT, new TerminalParser());
         add(LEFT_PARENTHESIS, new ParenthesisParser());
-        prefix(NOT, Precedence.PREFIX);
+        prefix(NOT, Precedence.UNARY_PRE_INCREMENT);
 
         // infix
-        infix(PLUS, Precedence.SUM);
-        infix(DASH, Precedence.SUM);
-        infix(STAR, Precedence.PRODUCT);
-        infix(SLASH, Precedence.PRODUCT);
-        infix(PERCENT, Precedence.PRODUCT);
-        infix(OR, Precedence.OR);
-        infix(AND, Precedence.AND);
+        infix(PLUS, Precedence.ADDITION);
+        infix(DASH, Precedence.ADDITION);
+        infix(STAR, Precedence.MULTIPLICATION);
+        infix(SLASH, Precedence.MULTIPLICATION);
+        infix(PERCENT, Precedence.MULTIPLICATION);
+        infix(OR, Precedence.LOGICAL_OR);
+        infix(AND, Precedence.LOGICAL_AND);
         infix(EQUALS, Precedence.ASSIGNMENT);
         add(LEFT_PARENTHESIS, new FunctionCallParser());
     }
