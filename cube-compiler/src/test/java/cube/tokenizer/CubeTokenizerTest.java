@@ -42,6 +42,14 @@ public class CubeTokenizerTest {
     }
 
     @Test
+    public void shouldTokenizeEqualitySign() {
+        assertThat(
+                tokenize("=="),
+                is(equalTo(List.of(
+                        new Symbol(EQUALITY)))));
+    }
+
+    @Test
     public void shouldTokenizeZero() {
         assertThat(
                 tokenize("0"),

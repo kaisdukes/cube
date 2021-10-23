@@ -12,7 +12,8 @@ public enum SymbolType {
     LEFT_PARENTHESIS("("),
     RIGHT_PARENTHESIS(")"),
     COMMA(","),
-    EQUALS("=");
+    EQUALS("="),
+    EQUALITY("==");
 
     private final String text;
     private static final Map<String, SymbolType> symbolMap = new HashMap<>();

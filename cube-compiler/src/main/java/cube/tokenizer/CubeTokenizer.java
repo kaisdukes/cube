@@ -106,13 +106,24 @@ public class CubeTokenizer {
     }
 
     private void readSymbol(final char ch) {
+        tokenType = SYMBOL;
+        tokenStart = position++;
+
         if (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '%'
-                || ch == '(' || ch == ')' || ch == ',' || ch == '=') {
-            tokenType = SYMBOL;
-            tokenStart = position;
-            tokenEnd = ++position;
+                || ch == '(' || ch == ')' || ch == ',') {
+            tokenEnd = position;
             return;
         }
+
+        if (ch == '=') {
+            if (canRead() && peek() == '=') {
+                tokenEnd = ++position;
+            } else {
+                tokenEnd = position;
+            }
+            return;
+        }
+
         throw new UnsupportedOperationException("The character '" + ch + "' is not recognized.");
     }
 
