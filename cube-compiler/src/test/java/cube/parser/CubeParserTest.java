@@ -133,4 +133,13 @@ public class CubeParserTest {
                         new Identifier("a"),
                         new IntConstant(2)))));
     }
+
+    @Test
+    public void shouldParseEquality() {
+        assertThat(
+                parse("i == 0"),
+                is(equalTo(new BinaryExpression(EQUALITY,
+                        new Identifier("i"),
+                        new IntConstant(0)))));
+    }
 }

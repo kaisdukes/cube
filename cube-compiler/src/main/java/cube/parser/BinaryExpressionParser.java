@@ -50,6 +50,7 @@ public class BinaryExpressionParser implements InfixParser {
             case SLASH -> DIVIDE;
             case PERCENT -> MODULO;
             case EQUALS -> ASSIGN;
+            case EQUALITY -> EQUALITY;
             default -> throw new UnsupportedOperationException(
                     "The symbol type " + symbol.getSymbolType() + " is not supported.");
         };

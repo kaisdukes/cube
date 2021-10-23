@@ -42,6 +42,7 @@ public class CubeParser extends PrattParser {
         infix(OR, Precedence.LOGICAL_OR);
         infix(AND, Precedence.LOGICAL_AND);
         infix(EQUALS, Precedence.ASSIGNMENT);
+        infix(EQUALITY, Precedence.RELATIONAL_EQUAL);
         add(LEFT_PARENTHESIS, new FunctionCallParser());
     }
 
