@@ -153,7 +153,7 @@ public class CubeTokenizerTest {
                         new Keyword(FUNCTION),
                         new Identifier("foo"),
                         new Keyword(AS),
-                        new Keyword(INT)))));
+                        new Identifier("int")))));
     }
 
     @Test

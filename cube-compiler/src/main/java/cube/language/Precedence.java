@@ -10,5 +10,6 @@ public class Precedence {
     public static final int ADDITION = 6;
     public static final int MULTIPLICATION = 7;
     public static final int UNARY_PRE_INCREMENT = 8;
-    public static final int FUNCTION_CALL = 9;
+    public static final int TYPE_EXPRESSION = 9;
+    public static final int FUNCTION_CALL = 10;
 }

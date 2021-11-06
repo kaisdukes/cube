@@ -33,6 +33,7 @@ public class BinaryExpressionParser implements InfixParser {
             return switch (keyword.getKeywordType()) {
                 case AND -> AND;
                 case OR -> OR;
+                case AS -> AS;
                 default -> throw new UnsupportedOperationException(
                         "The keyword type " + keyword.getKeywordType() + " is not supported.");
             };

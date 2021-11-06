@@ -10,9 +10,7 @@ public enum KeywordType {
     END,
     FUNCTION,
     IF,
-    INT,
     OR,
-    OUTPUT,
     THEN,
     NOT;
 

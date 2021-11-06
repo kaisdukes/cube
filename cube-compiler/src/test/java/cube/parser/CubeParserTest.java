@@ -188,4 +188,14 @@ public class CubeParserTest {
                                 new IntConstant(1),
                                 new IntConstant(2)))));
     }
+
+    @Test
+    public void shouldParseTypeExpression() {
+        assertThat(
+                parse("foo as int"),
+                is(equalTo(
+                        new BinaryExpression(AS,
+                                new Identifier("foo"),
+                                new Identifier("int")))));
+    }
 }
