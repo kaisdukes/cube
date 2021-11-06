@@ -7,6 +7,7 @@ import cube.tokenizer.CubeTokenizer;
 
 import java.util.*;
 
+import static cube.expressions.ExpressionType.KEYWORD;
 import static cube.expressions.ExpressionType.SYMBOL;
 
 public abstract class PrattParser {
@@ -38,7 +39,7 @@ public abstract class PrattParser {
         else prefix = tokenPrefixParsers.get(token.getExpressionType());
         if (prefix == null)
             throw new UnsupportedOperationException(
-                    "The token " + token.getExpressionType() + ' ' + token + " is not supported.");
+                    "The " + token.getExpressionType() + ' ' + token + " is not supported.");
         Expression left = prefix.parse(this, token);
 
         // infix
@@ -86,6 +87,15 @@ public abstract class PrattParser {
         if (token.getExpressionType() != SYMBOL || ((Symbol) token).getSymbolType() != symbolType) {
             throw new RuntimeException(
                     "Expected " + symbolType + " not " + token.getExpressionType() + ' ' + token);
+        }
+        return next();
+    }
+
+    public Expression next(final KeywordType keywordType) {
+        final var token = lookAhead(0);
+        if (token.getExpressionType() != KEYWORD || ((Keyword) token).getKeywordType() != keywordType) {
+            throw new RuntimeException(
+                    "Expected " + keywordType + " not " + token.getExpressionType() + ' ' + token);
         }
         return next();
     }

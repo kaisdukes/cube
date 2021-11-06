@@ -31,6 +31,7 @@ public class CubeParser extends PrattParser {
         add(IDENTIFIER, new TerminalParser());
         add(INT_CONSTANT, new TerminalParser());
         add(LEFT_PARENTHESIS, new ParenthesisParser());
+        add(IF, new IfExpressionParser());
         prefix(NOT, Precedence.UNARY_PRE_INCREMENT);
 
         // infix

@@ -175,4 +175,17 @@ public class CubeParserTest {
                                 new Identifier("i"),
                                 new IntConstant(0))))));
     }
+
+    @Test
+    public void shouldParseIfThenElse() {
+        assertThat(
+                parse("if i == 0 then 1 else 2"),
+                is(equalTo(
+                        new IfExpression(
+                                new BinaryExpression(EQUALITY,
+                                        new Identifier("i"),
+                                        new IntConstant(0)),
+                                new IntConstant(1),
+                                new IntConstant(2)))));
+    }
 }

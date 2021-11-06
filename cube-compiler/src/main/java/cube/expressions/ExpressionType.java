@@ -8,5 +8,6 @@ public enum ExpressionType {
     UNARY_EXPRESSION,
     BINARY_EXPRESSION,
     EOF,
-    FUNCTION_CALL;
+    FUNCTION_CALL,
+    IF_EXPRESSION;
 }

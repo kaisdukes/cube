@@ -1,6 +1,7 @@
 package cube.formatter;
 
 import cube.expressions.*;
+import cube.language.OperatorType;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -114,5 +115,18 @@ public class CubeFormatterTest {
                         List.of(new Identifier("x"), new Identifier("y")))
                         .toString(),
                 is(equalTo("bar(x, y)")));
+    }
+
+    @Test
+    public void shouldFormatIfThenElse() {
+        assertThat(
+                new IfExpression(
+                        new BinaryExpression(EQUALITY,
+                                new Identifier("i"),
+                                new IntConstant(0)),
+                        new IntConstant(1),
+                        new IntConstant(2))
+                        .toString(),
+                is(equalTo("if i == 0 then 1 else 2")));
     }
 }

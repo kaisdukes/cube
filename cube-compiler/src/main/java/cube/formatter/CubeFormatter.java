@@ -19,6 +19,7 @@ public class CubeFormatter {
             case UNARY_EXPRESSION -> formatUnaryExpression((UnaryExpression) expression);
             case BINARY_EXPRESSION -> formatBinaryExpression((BinaryExpression) expression);
             case FUNCTION_CALL -> formatFunctionCall((FunctionCallExpression) expression);
+            case IF_EXPRESSION -> formatIfExpression((IfExpression) expression);
             default -> throw new UnsupportedOperationException(
                     "The expression type " + expression.getExpressionType() + " is not supported.");
         }
@@ -54,6 +55,15 @@ public class CubeFormatter {
             format(parameters.get(i));
         }
         text.append(')');
+    }
+
+    private void formatIfExpression(final IfExpression expression) {
+        text.append("if ");
+        format(expression.getCondition());
+        text.append(" then ");
+        format(expression.getThenExpression());
+        text.append(" else ");
+        format(expression.getElseExpression());
     }
 
     private void formatWithBrackets(final Expression expression) {
