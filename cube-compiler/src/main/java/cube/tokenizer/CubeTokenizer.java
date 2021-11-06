@@ -115,7 +115,7 @@ public class CubeTokenizer {
             return;
         }
 
-        if (ch == '=') {
+        if (ch == '=' || ch == '<' || ch == '>') {
             if (canRead() && peek() == '=') {
                 tokenEnd = ++position;
             } else {

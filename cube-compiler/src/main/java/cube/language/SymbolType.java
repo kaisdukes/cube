@@ -13,7 +13,11 @@ public enum SymbolType {
     RIGHT_PARENTHESIS(")"),
     COMMA(","),
     EQUALS("="),
-    EQUALITY("==");
+    EQUALITY("=="),
+    LESS_THAN("<"),
+    LESS_THAN_OR_EQUAL("<="),
+    GREATER_THAN(">"),
+    GREATER_THAN_OR_EQUAL(">=");
 
     private final String text;
     private static final Map<String, SymbolType> symbolMap = new HashMap<>();

@@ -42,6 +42,17 @@ public class CubeTokenizerTest {
     }
 
     @Test
+    public void shouldTokenizeRelationalSymbols() {
+        assertThat(
+                tokenize("< <= > >="),
+                is(equalTo(List.of(
+                        new Symbol(LESS_THAN),
+                        new Symbol(LESS_THAN_OR_EQUAL),
+                        new Symbol(GREATER_THAN),
+                        new Symbol(GREATER_THAN_OR_EQUAL)))));
+    }
+
+    @Test
     public void shouldTokenizeEqualitySign() {
         assertThat(
                 tokenize("=="),

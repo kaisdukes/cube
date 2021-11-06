@@ -51,6 +51,10 @@ public class BinaryExpressionParser implements InfixParser {
             case PERCENT -> MODULO;
             case EQUALS -> ASSIGN;
             case EQUALITY -> EQUALITY;
+            case LESS_THAN -> LESS;
+            case LESS_THAN_OR_EQUAL -> LESS_OR_EQUAL;
+            case GREATER_THAN -> GREATER;
+            case GREATER_THAN_OR_EQUAL -> GREATER_OR_EQUAL;
             default -> throw new UnsupportedOperationException(
                     "The symbol type " + symbol.getSymbolType() + " is not supported.");
         };

@@ -157,6 +157,15 @@ public class CubeParserTest {
     }
 
     @Test
+    public void shouldParseLess() {
+        assertThat(
+                parse("i < 0"),
+                is(equalTo(new BinaryExpression(LESS,
+                        new Identifier("i"),
+                        new IntConstant(0)))));
+    }
+
+    @Test
     public void shouldParseAssignmentWithEquality() {
         assertThat(
                 parse("a = i == 0"),
