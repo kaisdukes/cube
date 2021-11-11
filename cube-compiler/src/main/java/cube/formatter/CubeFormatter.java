@@ -18,6 +18,7 @@ public class CubeFormatter {
             case IDENTIFIER -> text.append(((Identifier) expression).getText());
             case UNARY_EXPRESSION -> formatUnaryExpression((UnaryExpression) expression);
             case BINARY_EXPRESSION -> formatBinaryExpression((BinaryExpression) expression);
+            case FUNCTION -> formatFunction((FunctionExpression) expression);
             case FUNCTION_CALL -> formatFunctionCall((FunctionCallExpression) expression);
             case IF_EXPRESSION -> formatIfExpression((IfExpression) expression);
             default -> throw new UnsupportedOperationException(
@@ -44,6 +45,34 @@ public class CubeFormatter {
         text.append(expression.getOperatorType().getText());
         text.append(' ');
         formatWithBrackets(expression.getRight());
+    }
+
+    private void formatFunction(final FunctionExpression expression) {
+
+        // name
+        text.append("function ");
+        format(expression.getName());
+
+        // type
+        text.append(" as ");
+        format(expression.getType());
+
+        // parameters
+        text.append('(');
+        final List<Expression> parameters = expression.getParameters();
+        for (int i = 0; i < parameters.size(); i++) {
+            if (i > 0) text.append(", ");
+            format(parameters.get(i));
+        }
+        text.append(')');
+
+        // block
+        final List<Expression> block = expression.getBlock();
+        for (final Expression value : block) {
+            text.append("\n    ");
+            format(value);
+        }
+        text.append("\nend");
     }
 
     private void formatFunctionCall(final FunctionCallExpression expression) {

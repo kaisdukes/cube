@@ -1,7 +1,6 @@
 package cube.formatter;
 
 import cube.expressions.*;
-import cube.language.OperatorType;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -128,5 +127,29 @@ public class CubeFormatterTest {
                         new IntConstant(2))
                         .toString(),
                 is(equalTo("if i == 0 then 1 else 2")));
+    }
+
+    @Test
+    public void shouldFormatVoidFunction() {
+        assertThat(
+                new FunctionExpression(
+                        new Identifier("foo"),
+                        new Identifier("void"),
+                        emptyList(),
+                        List.of(
+                                new FunctionCallExpression(
+                                        new Identifier("a"),
+                                        emptyList()),
+                                new FunctionCallExpression(
+                                        new Identifier("b"),
+                                        emptyList()),
+                                new IntConstant(5)))
+                        .toString(),
+                is(equalTo("""
+                        function foo as void()
+                            a()
+                            b()
+                            5
+                        end""")));
     }
 }
