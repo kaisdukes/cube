@@ -9,6 +9,7 @@ import static cube.language.OperatorType.NEGATE;
 
 public class CubeFormatter {
     private final StringBuilder text = new StringBuilder();
+    private int indent;
 
     public void format(final Expression expression) {
         switch (expression.getExpressionType()) {
@@ -68,11 +69,14 @@ public class CubeFormatter {
 
         // block
         final List<Expression> block = expression.getBlock();
+        indent++;
         for (final Expression value : block) {
-            text.append("\n    ");
+            newLine();
             format(value);
         }
-        text.append("\nend");
+        indent--;
+        newLine();
+        text.append("end");
     }
 
     private void formatFunctionCall(final FunctionCallExpression expression) {
@@ -100,5 +104,10 @@ public class CubeFormatter {
         if (brackets) text.append('(');
         format(expression);
         if (brackets) text.append(')');
+    }
+
+    private void newLine() {
+        text.append('\n');
+        text.append("    ".repeat(indent));
     }
 }
