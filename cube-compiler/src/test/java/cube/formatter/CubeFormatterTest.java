@@ -146,10 +146,34 @@ public class CubeFormatterTest {
                                 new IntConstant(5)))
                         .toString(),
                 is(equalTo("""
-                        function foo as void()
+                        function foo as void ()
                             a()
                             b()
                             5
+                        end""")));
+    }
+
+    @Test
+    public void shouldFormatFunctionWithParameters() {
+        assertThat(
+                new FunctionExpression(
+                        new Identifier("add"),
+                        new Identifier("int"),
+                        List.of(
+                                new BinaryExpression(AS,
+                                        new Identifier("a"),
+                                        new Identifier("int")),
+                                new BinaryExpression(AS,
+                                        new Identifier("b"),
+                                        new Identifier("int"))),
+                        List.of(
+                                new BinaryExpression(ADD,
+                                        new Identifier("a"),
+                                        new Identifier("b"))))
+                        .toString(),
+                is(equalTo("""
+                        function add as int (a as int, b as int)
+                            a + b
                         end""")));
     }
 }

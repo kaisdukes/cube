@@ -59,7 +59,7 @@ public class CubeFormatter {
         format(expression.getType());
 
         // parameters
-        text.append('(');
+        text.append(" (");
         final List<Expression> parameters = expression.getParameters();
         for (int i = 0; i < parameters.size(); i++) {
             if (i > 0) text.append(", ");
