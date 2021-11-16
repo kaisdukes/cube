@@ -198,4 +198,52 @@ public class CubeParserTest {
                                 new Identifier("foo"),
                                 new Identifier("int")))));
     }
+
+    @Test
+    public void shouldParseVoidFunction() {
+        assertThat(
+                parse("""
+                        function foo as void ()
+                            a()
+                            b()
+                            5
+                        end"""),
+                is(equalTo(
+                        new FunctionExpression(
+                                new Identifier("foo"),
+                                new Identifier("void"),
+                                emptyList(),
+                                List.of(
+                                        new FunctionCallExpression(
+                                                new Identifier("a"),
+                                                emptyList()),
+                                        new FunctionCallExpression(
+                                                new Identifier("b"),
+                                                emptyList()),
+                                        new IntConstant(5))))));
+    }
+
+    @Test
+    public void shouldParseFunctionWithParameters() {
+        assertThat(
+                parse("""
+                        function add as int (a as int, b as int)
+                            a + b
+                        end"""),
+                is(equalTo(
+                        new FunctionExpression(
+                                new Identifier("add"),
+                                new Identifier("int"),
+                                List.of(
+                                        new BinaryExpression(AS,
+                                                new Identifier("a"),
+                                                new Identifier("int")),
+                                        new BinaryExpression(AS,
+                                                new Identifier("b"),
+                                                new Identifier("int"))),
+                                List.of(
+                                        new BinaryExpression(ADD,
+                                                new Identifier("a"),
+                                                new Identifier("b")))))));
+    }
 }

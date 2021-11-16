@@ -73,9 +73,18 @@ public abstract class PrattParser {
         keywordInfixParsers.put(keywordType, parser);
     }
 
-    public boolean nextIs(SymbolType symbolType) {
+    public boolean nextIs(final SymbolType symbolType) {
         final var token = lookAhead(0);
         if (token.getExpressionType() != SYMBOL || ((Symbol) token).getSymbolType() != symbolType) {
+            return false;
+        }
+        next();
+        return true;
+    }
+
+    public boolean nextIs(final KeywordType keywordType) {
+        final var token = lookAhead(0);
+        if (token.getExpressionType() != KEYWORD || ((Keyword) token).getKeywordType() != keywordType) {
             return false;
         }
         next();
@@ -85,7 +94,7 @@ public abstract class PrattParser {
     public Expression next(final SymbolType symbolType) {
         final var token = lookAhead(0);
         if (token.getExpressionType() != SYMBOL || ((Symbol) token).getSymbolType() != symbolType) {
-            throw new RuntimeException(
+            throw new UnsupportedOperationException(
                     "Expected " + symbolType + " not " + token.getExpressionType() + ' ' + token);
         }
         return next();
@@ -94,10 +103,19 @@ public abstract class PrattParser {
     public Expression next(final KeywordType keywordType) {
         final var token = lookAhead(0);
         if (token.getExpressionType() != KEYWORD || ((Keyword) token).getKeywordType() != keywordType) {
-            throw new RuntimeException(
+            throw new UnsupportedOperationException(
                     "Expected " + keywordType + " not " + token.getExpressionType() + ' ' + token);
         }
         return next();
+    }
+
+    public Identifier nextIdentifier() {
+        final var token = lookAhead(0);
+        if (!(token instanceof Identifier)) {
+            throw new UnsupportedOperationException(
+                    "Expected identifier not " + token.getExpressionType() + ' ' + token);
+        }
+        return (Identifier) next();
     }
 
     private Expression next() {
@@ -116,9 +134,14 @@ public abstract class PrattParser {
     private int getPrecedence() {
         final var next = lookAhead(0);
         if (next instanceof EofToken) return 0;
-        InfixParser parser = next instanceof Keyword
-                ? keywordInfixParsers.get(((Keyword) next).getKeywordType())
-                : symbolInfixParsers.get(((Symbol) next).getSymbolType());
+        InfixParser parser;
+        if (next instanceof Keyword) {
+            parser = keywordInfixParsers.get(((Keyword) next).getKeywordType());
+        } else if (next instanceof Symbol) {
+            parser = symbolInfixParsers.get(((Symbol) next).getSymbolType());
+        } else {
+            return 0;
+        }
         if (parser != null) return parser.getPrecedence();
         return 0;
     }

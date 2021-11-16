@@ -21,7 +21,7 @@ public class CubeParser extends PrattParser {
 
         // Parse.
         final var parser = new CubeParser(tokenizer);
-        return parser.parseExpression();
+        return parser.  parseExpression();
     }
 
     public CubeParser(final CubeTokenizer tokenizer) {
@@ -32,6 +32,7 @@ public class CubeParser extends PrattParser {
         add(INT_CONSTANT, new TerminalParser());
         add(LEFT_PARENTHESIS, new ParenthesisParser());
         add(IF, new IfExpressionParser());
+        add(FUNCTION, new FunctionParser());
         prefix(NOT, Precedence.UNARY_PRE_INCREMENT);
 
         // infix

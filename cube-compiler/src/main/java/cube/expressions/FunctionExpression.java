@@ -6,15 +6,15 @@ import static cube.expressions.ExpressionType.FUNCTION;
 
 public class FunctionExpression extends Expression {
     private final Identifier name;
-    private final Expression type;
+    private final Identifier type;
     private final List<Expression> parameters;
     private final List<Expression> block;
 
     public FunctionExpression(
             final Identifier name,
-            Expression type,
-            List<Expression> parameters,
-            List<Expression> block) {
+            final Identifier type,
+            final List<Expression> parameters,
+            final List<Expression> block) {
         super(FUNCTION);
         this.name = name;
         this.type = type;
@@ -26,7 +26,7 @@ public class FunctionExpression extends Expression {
         return name;
     }
 
-    public Expression getType() {
+    public Identifier getType() {
         return type;
     }
 

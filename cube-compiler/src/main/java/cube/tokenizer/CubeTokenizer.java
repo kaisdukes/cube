@@ -136,7 +136,7 @@ public class CubeTokenizer {
     }
 
     private boolean whitespace(final char ch) {
-        return ch == ' ';
+        return ch == ' ' || ch == '\n';
     }
 
     private boolean digit(final char ch) {
