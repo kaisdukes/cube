@@ -2,22 +2,17 @@ package cube.compiler;
 
 import org.objectweb.asm.*;
 
-public class FactorialCompiler implements Opcodes {
+public class CubeCompiler implements Opcodes {
 
-    public static byte[] compile() {
+    public byte[] compile() {
 
         final ClassWriter classWriter = new ClassWriter(0);
-        final FieldVisitor fieldVisitor;
-        final RecordComponentVisitor recordComponentVisitor;
-        MethodVisitor methodVisitor;
-        final AnnotationVisitor annotationVisitor0;
-
         classWriter.visit(V15, ACC_PUBLIC | ACC_SUPER, "cube/examples/Factorial", null, "java/lang/Object", null);
 
         classWriter.visitSource("Factorial.java", null);
 
         {
-            methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null);
+            final var methodVisitor = classWriter.visitMethod(ACC_PUBLIC, "<init>", "()V", null, null);
             methodVisitor.visitCode();
             Label label0 = new Label();
             methodVisitor.visitLabel(label0);
@@ -32,7 +27,7 @@ public class FactorialCompiler implements Opcodes {
             methodVisitor.visitEnd();
         }
         {
-            methodVisitor = classWriter.visitMethod(ACC_PUBLIC | ACC_STATIC, "factorial", "(I)I", null, null);
+            final var methodVisitor = classWriter.visitMethod(ACC_PUBLIC | ACC_STATIC, "factorial", "(I)I", null, null);
             methodVisitor.visitCode();
             Label label0 = new Label();
             methodVisitor.visitLabel(label0);
