@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.is;
 public class CubeCompilerTest {
 
     @Test
-    public void shouldCompileFactorialFunction() {
+    public void shouldCompileFactorialFunction() throws Exception {
 
         // compile
         final CubeCompiler compiler = new CubeCompiler();
@@ -21,5 +21,16 @@ public class CubeCompilerTest {
         final var classLoader = new RuntimeClassLoader();
         final var type = classLoader.define(className, byteCode);
         assertThat(type.getName(), is(equalTo(className)));
+
+        // invoke default constructor
+        final var defaultConstructor = type.getConstructor();
+        final var object = defaultConstructor.newInstance();
+        assertThat(object.getClass(), is(equalTo(type)));
+
+        // call factorial function
+        final var factorial = type.getMethod("factorial", int.class);
+        assertThat(factorial.invoke(null, 0), is(equalTo(1)));
+        assertThat(factorial.invoke(null, 1), is(equalTo(1)));
+        assertThat(factorial.invoke(null, 5), is(equalTo(120)));
     }
 }
